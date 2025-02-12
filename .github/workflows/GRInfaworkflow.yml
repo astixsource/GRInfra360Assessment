@@ -17,6 +17,19 @@ jobs:
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
 
+        # Step 3: Verify directory structure (Debugging step)
+      - name: List Files in Workspace
+        run: |
+          echo "Listing workspace files..."
+          Get-ChildItem -Path D:\a\GRInfra360Assessment -Recurse
+
+      # Step 4: Create missing directory (if required)
+      - name: Ensure Required Directory Exists
+        run: |
+          if (!(Test-Path "D:\a\GRInfra360Assessment\GRInfratech360")) {
+            New-Item -Path "D:\a\GRInfra360Assessment\GRInfratech360" -ItemType Directory
+          }
+
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
 
