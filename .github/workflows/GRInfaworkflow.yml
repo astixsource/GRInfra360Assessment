@@ -40,7 +40,7 @@ jobs:
         run: msbuild GRInfratech360.sln /t:Clean
         
       - name: Build the solution
-        run: msbuild GRInfratech360.sln /nologo /verbosity:m /p:Configuration=Release
+        run: msbuild GRInfratech360.sln /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="published"
 
       #- name: Run Unit Tests
       #  run: dotnet test GRInfratech360.sln --logger "trx;LogFileName=TestResults.trx" --verbosity normal
