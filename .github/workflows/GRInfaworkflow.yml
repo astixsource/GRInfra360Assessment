@@ -22,7 +22,10 @@ jobs:
 
       - name: Restore NuGet packages
         run: nuget restore GRInfratech360.sln
-
+        
+      - name: Clean Solution
+        run: msbuild GRInfratech360.sln /t:Clean
+        
       - name: Build the solution
         run: msbuild GRInfratech360.sln /nologo /verbosity:m /p:Configuration=Release
 
