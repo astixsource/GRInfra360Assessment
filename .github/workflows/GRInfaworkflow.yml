@@ -40,8 +40,14 @@ jobs:
         run: msbuild GRInfratech360.sln /t:Clean
         
       - name: Build the solution
-        run: msbuild GRInfratech360.sln /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="published"
+        run: msbuild GRInfratech360.sln /nologo /verbosity:m /p:Configuration=Release
 
+# Step 6: Ensure Publish Directory Exists (Fix Error)
+      - name: Ensure Publish Directory Exists
+        run: |
+          if (!(Test-Path "D:\a\published")) {
+            New-Item -Path "D:\a\published" -ItemType Directory
+          }
       #- name: Run Unit Tests
       #  run: dotnet test GRInfratech360.sln --logger "trx;LogFileName=TestResults.trx" --verbosity normal
 
