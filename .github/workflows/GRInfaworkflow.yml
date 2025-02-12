@@ -21,13 +21,13 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
-        run: nuget restore Deloittee360.sln
+        run: nuget restore GRInfratech360.sln
 
       - name: Build the solution
-        run: msbuild Deloittee360.sln /nologo /verbosity:m /p:Configuration=Release
+        run: msbuild GRInfratech360.sln /nologo /verbosity:m /p:Configuration=Release
 
       #- name: Run Unit Tests
-      #  run: dotnet test Deloittee360.sln --logger "trx;LogFileName=TestResults.trx" --verbosity normal
+      #  run: dotnet test GRInfratech360.sln --logger "trx;LogFileName=TestResults.trx" --verbosity normal
 
   # Continuous Deployment Job with Manual Approval
   deploy:
@@ -46,7 +46,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Publish to folder
-        run: msbuild Deloittee360.sln /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="published"
+        run: msbuild GRInfratech360.sln /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="published"
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -57,6 +57,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'WA-DEL01-DELOITTE360-PROD'
+          app-name: 'wa-del01-GRInfra360-prod'
           slot-name: 'Production'
           package: ./
